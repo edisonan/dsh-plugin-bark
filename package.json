@@ -1,0 +1,45 @@
+{
+  "name": "dsh-plugin-bark",
+  "version": "0.1.0",
+  "description": "DSH plugin: 任务会话回合结束/中断/出错时，通过 Bark（iOS 推送）通知你，含任务摘要、状态、token 用量与耗时、可跳回会话的链接。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "bundle.patch.yml",
+    "bundle.patch.yaml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "bark",
+    "notification",
+    "cordis"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@types/node": "^22.20.1",
+    "typescript": "^5.6.0"
+  },
+  "dsh": {
+    "bundle": {
+      "name": "dsh-plugin-bark",
+      "description": "任务结束时用 Bark 推送进行通知",
+      "patch": "./bundle.patch.yml"
+    }
+  }
+}

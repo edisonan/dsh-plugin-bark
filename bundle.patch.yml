@@ -1,0 +1,43 @@
+# dsh-plugin-bark bundle patch layer.
+#
+# A bundle patch is a top-level YAML array of loader patch entries. New rows MUST
+# be wrapped in `- insert:`; writing a bare top-level `- id: dsh-plugin-bark`
+# would be treated as an override of an existing row ("entry not found") because
+# patch entries target existing rows by id. `insert` appends new rows.
+#
+# `name` references the plugin by its npm package name (the same name a user adds
+# via `dsh plugin --profile <name> add ./dsh-plugin-bark`), so Node resolution
+# finds the installed module. Personal values (device key) belong in each
+# machine's profile `cordis.patch.yml`, NOT here in the shared layer.
+- insert:
+    - id: dsh-plugin-bark
+      name: dsh-plugin-bark
+      config:
+        # Shared layer keeps the key empty on purpose; set your own key in your
+        # profile's cordis.patch.yml (see README). An env var BARK_DEVICE_KEY is
+        # also honored at runtime.
+        deviceKey: ""
+        group: "dsh"
+
+        # 总开关；false 时完全禁用（更省心）。
+        enabled: true
+
+        # 各触发时机开关：未列出的项按各自默认值。
+        # 默认只开“任务结束类”，把等你回答/授权/确认这类打断性通知默认关掉。
+        triggers:
+          turn-end-completed: true
+          turn-end-blocked: true
+          turn-end-max-tokens: false
+          turn-end-aborted: false
+          turn-end-interrupted: true
+          turn-end-error: true
+          asking-you: false
+          waiting-approval: false
+          plan-review: false
+
+        withStats: true
+        withDeepLink: true
+        titleTemplate: "{status}"
+        bodyTemplate: "{summary}\n{tokens} · {duration}"
+        summaryMaxLen: 60
+        timeoutMs: 5000

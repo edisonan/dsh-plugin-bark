@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Logs / OS
+*.log
+.DS_Store
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
